@@ -1,23 +1,31 @@
-import logo from './logo.svg';
+import { useSelector,useDispatch } from 'react-redux';
+import { increaseCount,decreaseCount,getLatestNews } from './redux/actions/actionCreator';
+import React from 'react';
 import './App.css';
 
+
 function App() {
+  const store = useSelector(store=>store.Counter.count)
+  const dispatch = useDispatch()
+  const [count,setCount] = React.useState(0)
+  const handleDecrease=()=>{
+    //setCount(prev=>prev-1)
+    dispatch(increaseCount())
+  }
+  const handleIncrease=()=>{
+    //setCount(prev=>prev+1)
+    dispatch(decreaseCount())
+  }
+  const handleNews=()=>{
+    //setCount(prev=>prev+1)
+    dispatch(getLatestNews())
+  }
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <button onClick={handleIncrease}>+1</button>
+    <button onClick={handleDecrease}>-1</button>
+    <button onClick={handleNews}>Get news</button>
+    <h1>{JSON.stringify(store)}</h1>
     </div>
   );
 }
